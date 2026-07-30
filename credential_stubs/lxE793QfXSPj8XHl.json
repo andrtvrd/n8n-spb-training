@@ -1,0 +1,17 @@
+{
+  "id": "lxE793QfXSPj8XHl",
+  "name": "Andrey - Google Sheets OAuth2 API",
+  "type": "googleSheetsOAuth2Api",
+  "data": {
+    "allowedHttpRequestDomains": ""
+  },
+  "ownedBy": {
+    "type": "personal",
+    "projectId": "2D7oWORK8XxHVUvA",
+    "projectName": "Andrey Tverdomed <andreyt@entechsolutions.com>",
+    "personalEmail": "andreyt@entechsolutions.com"
+  },
+  "isGlobal": false,
+  "isResolvable": false,
+  "resolvableAllowFallback": false
+}
