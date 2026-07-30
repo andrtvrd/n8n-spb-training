@@ -1,0 +1,18 @@
+{
+  "id": "Nhu8l5RrYeJmqF5Q",
+  "name": "Slack OAuth2 API",
+  "type": "slackOAuth2Api",
+  "data": {
+    "allowedHttpRequestDomains": "",
+    "accountIdentifier": ""
+  },
+  "ownedBy": {
+    "type": "personal",
+    "projectId": "2D7oWORK8XxHVUvA",
+    "projectName": "Andrey Tverdomed <andreyt@entechsolutions.com>",
+    "personalEmail": "andreyt@entechsolutions.com"
+  },
+  "isGlobal": false,
+  "isResolvable": false,
+  "resolvableAllowFallback": false
+}

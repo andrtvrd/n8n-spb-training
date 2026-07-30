@@ -1,0 +1,17 @@
+{
+  "id": "6gIyzmclVitIZeod",
+  "name": "Google Sheets OAuth2 API",
+  "type": "googleSheetsOAuth2Api",
+  "data": {
+    "allowedHttpRequestDomains": ""
+  },
+  "ownedBy": {
+    "type": "personal",
+    "projectId": "j4NMHpREgDzM4zM2",
+    "projectName": "Andrey Test <andreytwerd@gmail.com>",
+    "personalEmail": "andreytwerd@gmail.com"
+  },
+  "isGlobal": false,
+  "isResolvable": false,
+  "resolvableAllowFallback": false
+}
