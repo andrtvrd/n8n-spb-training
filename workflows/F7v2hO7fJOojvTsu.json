@@ -1,0 +1,79 @@
+{
+  "id": "F7v2hO7fJOojvTsu",
+  "name": "Builder Track - Meeting 1 - Part 3 - Prerequisites",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e62b24f1-3013-4c58-aee9-110511c5a24b"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw",
+          "mode": "list",
+          "cachedResultName": "Builder Track",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1888806730,
+          "mode": "list",
+          "cachedResultName": "campaigns_sample_data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit#gid=1888806730"
+        },
+        "options": {}
+      },
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        256,
+        0
+      ],
+      "id": "2b34efdd-16de-4e1a-bdf4-1253b6a319ea",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lxE793QfXSPj8XHl",
+          "name": "Andrey - Google Sheets OAuth2 API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "triggerCount": 0,
+  "versionId": "6dc7ce31-7356-413b-ab64-9f65b7505558",
+  "owner": {
+    "type": "personal",
+    "projectId": "2D7oWORK8XxHVUvA",
+    "projectName": "Andrey Tverdomed <andreyt@entechsolutions.com>",
+    "personalEmail": "andreyt@entechsolutions.com"
+  },
+  "parentFolderId": "R3Ng0ERj614YRYsb",
+  "isArchived": false,
+  "nodeGroups": []
+}

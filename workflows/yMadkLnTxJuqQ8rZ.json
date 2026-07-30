@@ -1,0 +1,217 @@
+{
+  "id": "yMadkLnTxJuqQ8rZ",
+  "name": "Builder Track - Meeting 1 - Part 1",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        496
+      ],
+      "id": "f3d0f0b5-a599-4106-8e81-2cae04f588ac"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw",
+          "mode": "list",
+          "cachedResultName": "Builder Track",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1888806730,
+          "mode": "list",
+          "cachedResultName": "campaigns_sample_data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit#gid=1888806730"
+        },
+        "options": {}
+      },
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1504,
+        496
+      ],
+      "id": "19bf0244-1787-48a6-8dd3-882848d44f21",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lxE793QfXSPj8XHl",
+          "name": "Andrey - Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "52afd4f6-e5d5-41ae-a369-84f1068c3f7e",
+              "name": "Nested objects",
+              "value": "={{ $json.Budget }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1744,
+        496
+      ],
+      "id": "c779d915-4ae8-4a40-b6f4-b39424b771a7",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "52afd4f6-e5d5-41ae-a369-84f1068c3f7e",
+              "name": "Accessing other nodes' data, not just the previous one",
+              "value": "={{ $('Google Sheets').item.json[\"Campaign Name\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "6a61c9c7-d15e-446d-b116-70f36cd3e690",
+              "name": "=Working with multiple items 1",
+              "value": "={{ $items(\"Google Sheets\").length }}",
+              "type": "string"
+            },
+            {
+              "id": "5c964d04-2102-4569-a338-ddd787a20dcf",
+              "name": "Working with multiple items 2",
+              "value": "={{ $('Google Sheets').all()[3].json.row_number }}",
+              "type": "string"
+            },
+            {
+              "id": "abc69781-1a2c-44d0-8253-b1e4ff7de93e",
+              "name": "Array methods inside expressions",
+              "value": "={{ $('Google Sheets').all().filter(i => i.json.Status === \"Draft\").length }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1968,
+        496
+      ],
+      "id": "c98a4b77-bf21-4be3-a216-ae8b76318f83",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1744,
+        816
+      ],
+      "id": "02cdfbcd-a202-4347-9f53-2a9c6018adcb",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n     item.json.budgetFormatted = \"$\" + Number(item.json['Budget']).toLocaleString();\n   }\n\nreturn $input.all()"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1744,
+        992
+      ],
+      "id": "9fa9ab70-57bf-41a7-b6fa-cae921766073",
+      "name": "Loop and Transform"
+    },
+    {
+      "parameters": {
+        "jsCode": "const readyCampaigns = $input.all().filter(item => item.json['Status'] === \"Ready\");\n\nreturn readyCampaigns"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1744,
+        1168
+      ],
+      "id": "5252b062-e263-4c2b-89cb-21d97d7f0afe",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst totalBudget = items.reduce((sum, item) => sum + Number(item.json['Budget']), 0);\n\n   return [{\n     json: {\n       totalCampaigns: items.length,\n       totalBudget: totalBudget\n     }\n   }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1744,
+        1376
+      ],
+      "id": "77f1cf69-ed21-4530-bab7-38e2e3c7a2e0",
+      "name": "Aggregate"
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "triggerCount": 0,
+  "versionId": "60505cfc-d9dd-449f-818a-b63a11c9c3f3",
+  "owner": {
+    "type": "personal",
+    "projectId": "2D7oWORK8XxHVUvA",
+    "projectName": "Andrey Tverdomed <andreyt@entechsolutions.com>",
+    "personalEmail": "andreyt@entechsolutions.com"
+  },
+  "parentFolderId": "R3Ng0ERj614YRYsb",
+  "isArchived": false,
+  "nodeGroups": []
+}

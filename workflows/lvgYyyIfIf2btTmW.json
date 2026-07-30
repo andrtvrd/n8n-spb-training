@@ -1,0 +1,47 @@
+{
+  "id": "lvgYyyIfIf2btTmW",
+  "name": "Builder Track - Meeting 2 - Part 1.2-1.3",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        32
+      ],
+      "id": "bbc12966-2577-4459-b3c0-7297570eecd5",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "content": "## Netsuite REST node\nAdd node here to show, if not available - show in self-hosted instance"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "bfaf641e-a74d-49a1-95cb-7aa998e17b32",
+      "name": "Sticky Note"
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "triggerCount": 0,
+  "versionId": "66a84877-bde0-4656-b0e8-99eafd61ab89",
+  "owner": {
+    "type": "personal",
+    "projectId": "y4gpFdVC3ot07eYp",
+    "projectName": "Eric Popivker <eric@entechsolutions.com>",
+    "personalEmail": "eric@entechsolutions.com"
+  },
+  "parentFolderId": null,
+  "isArchived": true,
+  "nodeGroups": []
+}

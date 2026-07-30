@@ -1,0 +1,185 @@
+{
+  "id": "5Ebro2jtntrITqK4",
+  "name": "Builder Track - Meeting 1 - Part 2 - Campaign Notifier",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5c4de789-f7fe-4aab-a0d9-a60cdb0d485e"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0BJW6G71B6",
+          "mode": "list",
+          "cachedResultName": "campaign-notifier"
+        },
+        "text": "={{ $json.messageText }}",
+        "otherOptions": {}
+      },
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [
+        432,
+        0
+      ],
+      "id": "85c38835-12e6-49d1-9de4-888b240cedd7",
+      "webhookId": "6a15064d-d59a-4f03-8e2d-4285e6925864",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "Nhu8l5RrYeJmqF5Q",
+          "name": "Slack OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw",
+          "mode": "list",
+          "cachedResultName": "Builder Track",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 228768318,
+          "mode": "list",
+          "cachedResultName": "notification_log_tab",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit#gid=228768318"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $now }}",
+            "Campaign": "={{ $('When Executed by Another Workflow').item.json.campaignName }}",
+            "Message": "={{ $('When Executed by Another Workflow').item.json.flag }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Campaign",
+              "displayName": "Campaign",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        688,
+        0
+      ],
+      "id": "b3f1a884-967e-4474-bfa1-28f997356eb9",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lxE793QfXSPj8XHl",
+          "name": "Andrey - Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const item = $json;\n\nlet messageText;\nlet campaignLabel;\n\nif (item.campaignName !== undefined) {\n  // Single-campaign shape (main demo flow + reusability proof)\n  const emoji = item.flag === \"overdue\" ? \"⚠️ OVERDUE: \" : \"📅 \";\n  messageText = emoji + item.campaignName + \" — starts in \" + item.daysUntilStart + \" days\";\n  campaignLabel = item.campaignName;\n} else if (item.totalReadyCampaigns !== undefined) {\n  // Summary shape (exercise flow)\n  messageText = \"📊 Summary: \" + item.totalReadyCampaigns + \" Ready campaigns, total budget $\" + Number(item.totalBudget).toLocaleString();\n  campaignLabel = \"Summary\";\n} else {\n  messageText = \"⚠️ Campaign Notifier received an unrecognized payload shape.\";\n  campaignLabel = \"Unknown\";\n}\n\nreturn {\n  json: {\n    messageText: messageText,\n    campaignLabel: campaignLabel\n  }\n};"
+      },
+      "name": "Normalize Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "437fa828-958b-4aae-9cc1-3875900cac79"
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Normalize Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Payload": {
+      "main": [
+        [
+          {
+            "node": "Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "triggerCount": 0,
+  "versionId": "f590ca89-0a9d-4319-820c-417df3438a03",
+  "owner": {
+    "type": "personal",
+    "projectId": "y4gpFdVC3ot07eYp",
+    "projectName": "Eric Popivker <eric@entechsolutions.com>",
+    "personalEmail": "eric@entechsolutions.com"
+  },
+  "parentFolderId": null,
+  "isArchived": true,
+  "nodeGroups": []
+}

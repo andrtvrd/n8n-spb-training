@@ -1,0 +1,128 @@
+{
+  "id": "ZWCghKRdJg44eVc4",
+  "name": "Builder Track - Meeting 1 - Part 2 - Main Flow",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e3ce4c03-3d86-4b3f-a4e9-75c9255bc8b8"
+    },
+    {
+      "parameters": {
+        "jsCode": "const today = new Date();\nconst results = [];\nconst items = $input.all();\n\nfor (const item of items) {\n  const startDate = new Date(item.json['Start Date']);\n  const diffTime = startDate.getTime() - today.getTime();\n  const daysUntilStart = Math.ceil(diffTime / (1000 * 60 * 60 * 24));\n\n  results.push({\n    json: {\n      campaignName: item.json['Campaign Name'],\n      daysUntilStart: daysUntilStart,\n      flag: daysUntilStart < 0 ? \"Overdue\" : \"Upcoming\"\n    }\n  });\n}\n\nreturn results;"
+      },
+      "name": "Calculate Days & Flag",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        0
+      ],
+      "id": "c1ec9783-dcf9-4769-bf15-7ba169ac46b2"
+    },
+    {
+      "parameters": {
+        "workflowId": "bHWfMQhU4uH9ttNE",
+        "options": {}
+      },
+      "name": "Execute Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        752,
+        0
+      ],
+      "id": "7a4039a8-56cf-43df-abbd-dbb7373804d0"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw",
+          "mode": "list",
+          "cachedResultName": "Builder Track",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1888806730,
+          "mode": "list",
+          "cachedResultName": "campaigns_sample_data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit#gid=1888806730"
+        },
+        "options": {}
+      },
+      "name": "Google Sheets1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        256,
+        0
+      ],
+      "id": "226ead3e-b1a5-4c89-95c1-8e1ff6d060fd",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lxE793QfXSPj8XHl",
+          "name": "Andrey - Google Sheets OAuth2 API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Days & Flag": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "Calculate Days & Flag",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "triggerCount": 0,
+  "versionId": "54a829fe-f89c-4aaf-9b9e-3d335471bf84",
+  "owner": {
+    "type": "personal",
+    "projectId": "2D7oWORK8XxHVUvA",
+    "projectName": "Andrey Tverdomed <andreyt@entechsolutions.com>",
+    "personalEmail": "andreyt@entechsolutions.com"
+  },
+  "parentFolderId": "R3Ng0ERj614YRYsb",
+  "isArchived": false,
+  "nodeGroups": []
+}
