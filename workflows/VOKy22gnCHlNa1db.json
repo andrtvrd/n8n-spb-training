@@ -29,7 +29,7 @@
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2,
       "position": [
-        80,
+        96,
         -80
       ],
       "id": "0d24d011-83c4-48a6-9611-c6b6cd873e50",
@@ -53,14 +53,48 @@
         },
         "sheetName": {
           "__rl": true,
-          "value": "={{ $vars.SHEET_ID }}",
-          "mode": "name"
+          "value": 228768318,
+          "mode": "list",
+          "cachedResultName": "notification_log_tab",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit#gid=228768318"
         },
         "columns": {
           "mappingMode": "defineBelow",
-          "value": {},
+          "value": {
+            "Timestamp": "={{ $now }}",
+            "Campaign": "={{ $('Normalize Payload').item.json.campaignLabel }}",
+            "Message": "={{ $('Normalize Payload').item.json.messageText }}"
+          },
           "matchingColumns": [],
-          "schema": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Campaign",
+              "displayName": "Campaign",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
           "attemptToConvertTypes": false,
           "convertFieldsToString": false
         },
@@ -94,6 +128,109 @@
         -80
       ],
       "id": "7ca04473-9327-438a-b6fd-72216e71a07a"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0BJW6G71B6",
+          "mode": "list",
+          "cachedResultName": "campaign-notifier"
+        },
+        "text": "={{ $json.messageText }}",
+        "otherOptions": {}
+      },
+      "name": "Slack old",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [
+        96,
+        192
+      ],
+      "id": "92f341a0-3ef7-4c70-99d3-601c77433b5a",
+      "webhookId": "6a15064d-d59a-4f03-8e2d-4285e6925864",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "Nhu8l5RrYeJmqF5Q",
+          "name": "Slack OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw",
+          "mode": "list",
+          "cachedResultName": "Builder Track",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 228768318,
+          "mode": "list",
+          "cachedResultName": "notification_log_tab",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit#gid=228768318"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $now }}",
+            "Campaign": "={{ $('When Executed by Another Workflow').item.json.campaignName }}",
+            "Message": "={{ $('When Executed by Another Workflow').item.json.flag }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Campaign",
+              "displayName": "Campaign",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "name": "Google Sheet old",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        352,
+        192
+      ],
+      "id": "4b661120-d31f-49f3-924a-d811ed72b3a6",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lxE793QfXSPj8XHl",
+          "name": "Andrey - Google Sheets OAuth2 API"
+        }
+      }
     }
   ],
   "connections": {
@@ -129,6 +266,17 @@
           }
         ]
       ]
+    },
+    "Slack old": {
+      "main": [
+        [
+          {
+            "node": "Google Sheet old",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -139,14 +287,14 @@
     "callerPolicy": "any"
   },
   "triggerCount": 0,
-  "versionId": "a9dcd135-a97a-4997-b6ee-7e9d559bf14d",
+  "versionId": "e29dab81-a62e-4827-a0f4-2a2e0cf249b2",
   "owner": {
     "type": "personal",
     "projectId": "2D7oWORK8XxHVUvA",
     "projectName": "Andrey Tverdomed <andreyt@entechsolutions.com>",
     "personalEmail": "andreyt@entechsolutions.com"
   },
-  "parentFolderId": "R3Ng0ERj614YRYsb",
+  "parentFolderId": "GcSdHMuOcdxeu9af",
   "isArchived": false,
   "nodeGroups": []
 }
