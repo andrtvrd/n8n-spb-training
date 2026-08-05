@@ -1,0 +1,112 @@
+{
+  "id": "lfTR8MTYjMgIjtsJ",
+  "name": "Builder Track - Meeting 1 - Part 2 - Reusability Proof",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "50c09843-c3b2-4462-90f3-136cd3a0aded"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e97b405f-e59d-4ddb-924e-bf194a012fe2",
+              "name": "campaignName",
+              "value": "Test Campaign — Reusability Check",
+              "type": "string"
+            },
+            {
+              "id": "9efb946d-f19a-42e5-b3a7-ad4eb058dada",
+              "name": "daysUntilStart",
+              "value": -2,
+              "type": "number"
+            },
+            {
+              "id": "cbbdb741-994a-4f3d-abaf-cf68b9a20a3b",
+              "name": "flag",
+              "value": "overdue",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        256,
+        0
+      ],
+      "id": "f8d0c364-5c36-4e72-afd3-ba857c7c2154"
+    },
+    {
+      "parameters": {
+        "workflowId": "bHWfMQhU4uH9ttNE",
+        "options": {}
+      },
+      "name": "Execute Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        512,
+        0
+      ],
+      "id": "4916273c-3526-4d77-a1b9-03313aad3dd8"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "triggerCount": 0,
+  "versionId": "14f2c110-7305-493e-86c9-e95749fbb6a5",
+  "owner": {
+    "type": "personal",
+    "projectId": "2D7oWORK8XxHVUvA",
+    "projectName": "Andrey Tverdomed <andreyt@entechsolutions.com>",
+    "personalEmail": "andreyt@entechsolutions.com"
+  },
+  "parentFolderId": "O9HLP9NwlldBkZGO",
+  "isArchived": false,
+  "nodeGroups": []
+}

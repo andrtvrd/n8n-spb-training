@@ -1,6 +1,6 @@
 {
-  "id": "VOKy22gnCHlNa1db",
-  "name": "Builder Track - Meeting 2 - Part 2 - Campaign Notifier Refactored",
+  "id": "QpmYKO59MQLxrDMm",
+  "name": "Builder Track - Meeting 1 - Part 2 - Campaign Notifier",
   "nodes": [
     {
       "parameters": {},
@@ -8,10 +8,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
-        -352,
-        -80
+        0,
+        0
       ],
-      "id": "62a1ed4a-506b-43bb-8648-d8f63b85cdf3"
+      "id": "8e748d69-e3de-4957-9b3c-2c0ed13c8ee6"
     },
     {
       "parameters": {
@@ -19,8 +19,9 @@
         "select": "channel",
         "channelId": {
           "__rl": true,
-          "value": "={{ $vars.SLACK_CHANNEL }}",
-          "mode": "name"
+          "value": "C0BJW6G71B6",
+          "mode": "list",
+          "cachedResultName": "campaign-notifier"
         },
         "text": "={{ $json.messageText }}",
         "otherOptions": {}
@@ -29,11 +30,11 @@
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2,
       "position": [
-        96,
-        -80
+        432,
+        0
       ],
-      "id": "0d24d011-83c4-48a6-9611-c6b6cd873e50",
-      "webhookId": "95450069-a1bc-4821-90cf-d2cd36eac1cc",
+      "id": "4c5a05f2-5f36-4dd6-9f19-596881cb642e",
+      "webhookId": "6a15064d-d59a-4f03-8e2d-4285e6925864",
       "credentials": {
         "slackOAuth2Api": {
           "id": "Nhu8l5RrYeJmqF5Q",
@@ -104,10 +105,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [
-        336,
-        -80
+        688,
+        0
       ],
-      "id": "e5f8f24b-ce8b-4a66-82ef-58a2b18a8a02",
+      "id": "3c40bb06-0e69-41fc-8e93-547130d49129",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "lxE793QfXSPj8XHl",
@@ -124,113 +125,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -128,
-        -80
+        224,
+        0
       ],
-      "id": "7ca04473-9327-438a-b6fd-72216e71a07a"
-    },
-    {
-      "parameters": {
-        "authentication": "oAuth2",
-        "select": "channel",
-        "channelId": {
-          "__rl": true,
-          "value": "C0BJW6G71B6",
-          "mode": "list",
-          "cachedResultName": "campaign-notifier"
-        },
-        "text": "={{ $json.messageText }}",
-        "otherOptions": {}
-      },
-      "name": "Slack old",
-      "type": "n8n-nodes-base.slack",
-      "typeVersion": 2,
-      "position": [
-        96,
-        192
-      ],
-      "id": "92f341a0-3ef7-4c70-99d3-601c77433b5a",
-      "webhookId": "6a15064d-d59a-4f03-8e2d-4285e6925864",
-      "credentials": {
-        "slackOAuth2Api": {
-          "id": "Nhu8l5RrYeJmqF5Q",
-          "name": "Slack OAuth2 API"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw",
-          "mode": "list",
-          "cachedResultName": "Builder Track",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 228768318,
-          "mode": "list",
-          "cachedResultName": "notification_log_tab",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit#gid=228768318"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "Timestamp": "={{ $now }}",
-            "Campaign": "={{ $('When Executed by Another Workflow').item.json.campaignName }}",
-            "Message": "={{ $('When Executed by Another Workflow').item.json.flag }}"
-          },
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "Timestamp",
-              "displayName": "Timestamp",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Campaign",
-              "displayName": "Campaign",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Message",
-              "displayName": "Message",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "name": "Google Sheet old",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4,
-      "position": [
-        352,
-        192
-      ],
-      "id": "4b661120-d31f-49f3-924a-d811ed72b3a6",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "lxE793QfXSPj8XHl",
-          "name": "Andrey - Google Sheets OAuth2 API"
-        }
-      }
+      "id": "6c8f24be-ca96-4720-b538-46448e573662"
     }
   ],
   "connections": {
@@ -266,35 +164,22 @@
           }
         ]
       ]
-    },
-    "Slack old": {
-      "main": [
-        [
-          {
-            "node": "Google Sheet old",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
-    "availableInMCP": false,
-    "timeSavedMode": "fixed",
-    "callerPolicy": "any"
+    "availableInMCP": false
   },
   "triggerCount": 0,
-  "versionId": "e29dab81-a62e-4827-a0f4-2a2e0cf249b2",
+  "versionId": "b4962266-6ca8-4b69-bde6-209c92eb3cf8",
   "owner": {
     "type": "personal",
     "projectId": "2D7oWORK8XxHVUvA",
     "projectName": "Andrey Tverdomed <andreyt@entechsolutions.com>",
     "personalEmail": "andreyt@entechsolutions.com"
   },
-  "parentFolderId": "GcSdHMuOcdxeu9af",
+  "parentFolderId": "O9HLP9NwlldBkZGO",
   "isArchived": false,
   "nodeGroups": []
 }

@@ -1,0 +1,204 @@
+{
+  "id": "vqKJLd5HmYZl0WjN",
+  "name": "Sync SF Products to NS Items",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7336fb11-0255-47d9-906e-39871849019a",
+      "name": "Start Sync",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "customObject",
+        "operation": "getAll",
+        "customObject": "Product2",
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "8eda0794-ebeb-4c88-90a2-1a9ba2de9262",
+      "name": "Fetch SF Products",
+      "type": "n8n-nodes-base.salesforce",
+      "typeVersion": 1,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "itemId",
+              "value": "={{ $json.ProductCode }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "displayName",
+              "value": "={{ $json.Name }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "description",
+              "value": "={{ $json.Description }}",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "isInactive",
+              "value": "={{ !$json.IsActive }}",
+              "type": "boolean"
+            },
+            {
+              "id": "5",
+              "name": "salesforceId",
+              "value": "={{ $json.Id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1bd61bda-5b8d-4fa1-9471-0c0aa9ac6967",
+      "name": "Transform to NS Format",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "<__PLACEHOLDER_VALUE__NetSuite RESTlet URL (e.g., https://account.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=123&deploy=1)__>",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "netSuiteOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"action\": \"upsert\", \"recordType\": \"inventoryitem\", \"data\": $json } }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "2aae811d-5cf2-4267-a601-951db2874ae4",
+      "name": "Sync to NetSuite",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        672,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "tool": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "parameters": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClient",
+      "typeVersion": 1,
+      "position": [
+        880,
+        0
+      ],
+      "id": "060e94e2-1afb-4e3c-9ee7-978386542fed",
+      "name": "MCP Client"
+    }
+  ],
+  "connections": {
+    "Start Sync": {
+      "main": [
+        [
+          {
+            "node": "Fetch SF Products",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch SF Products": {
+      "main": [
+        [
+          {
+            "node": "Transform to NS Format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transform to NS Format": {
+      "main": [
+        [
+          {
+            "node": "Sync to NetSuite",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sync to NetSuite": {
+      "main": [
+        [
+          {
+            "node": "MCP Client",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "triggerCount": 0,
+  "versionId": "833ece2a-ab7a-4b3f-a214-cb696e16ff61",
+  "owner": {
+    "type": "personal",
+    "projectId": "2D7oWORK8XxHVUvA",
+    "projectName": "Andrey Tverdomed <andreyt@entechsolutions.com>",
+    "personalEmail": "andreyt@entechsolutions.com"
+  },
+  "parentFolderId": null,
+  "isArchived": false,
+  "nodeGroups": []
+}
