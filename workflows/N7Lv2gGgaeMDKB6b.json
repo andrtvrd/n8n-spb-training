@@ -36,10 +36,9 @@
   "triggerCount": 0,
   "versionId": "03b65078-09b1-480a-83c7-184f0c5e51f0",
   "owner": {
-    "type": "personal",
-    "projectId": "2D7oWORK8XxHVUvA",
-    "projectName": "Andrey Tverdomed <andreyt@entechsolutions.com>",
-    "personalEmail": "andreyt@entechsolutions.com"
+    "type": "team",
+    "teamId": "ymFdjvKmND9faXpW",
+    "teamName": "Sportsbet Training"
   },
   "parentFolderId": "GcSdHMuOcdxeu9af",
   "isArchived": false,
