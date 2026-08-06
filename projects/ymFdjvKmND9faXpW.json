@@ -12,5 +12,12 @@
     "teamId": "ymFdjvKmND9faXpW",
     "teamName": "Sportsbet Training"
   },
-  "variableStubs": []
+  "variableStubs": [
+    {
+      "id": "bVcRUBfUG1N7ay7m",
+      "key": "SLACK_CHANNEL",
+      "type": "string",
+      "value": ""
+    }
+  ]
 }
