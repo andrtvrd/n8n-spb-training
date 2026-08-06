@@ -1,0 +1,16 @@
+{
+  "id": "ymFdjvKmND9faXpW",
+  "name": "Sportsbet Training",
+  "icon": {
+    "type": "icon",
+    "value": "layers"
+  },
+  "description": "",
+  "type": "team",
+  "owner": {
+    "type": "team",
+    "teamId": "ymFdjvKmND9faXpW",
+    "teamName": "Sportsbet Training"
+  },
+  "variableStubs": []
+}
