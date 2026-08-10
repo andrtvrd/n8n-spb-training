@@ -1,0 +1,180 @@
+{
+  "id": "4TCseAWNZgMIMQXA",
+  "name": "Builder Track - Meeting 3 - Part 2",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -64,
+        -16
+      ],
+      "id": "d327a450-369f-4943-bd8e-fba0b7470e4f",
+      "name": "When chat message received",
+      "webhookId": "801b0852-8eb7-4f60-8a19-dac934074847"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        160,
+        -16
+      ],
+      "id": "6de524aa-ebe5-4bbd-b998-242ed444cec1",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "~anthropic/claude-sonnet-latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        112,
+        240
+      ],
+      "id": "31719869-62d8-4a20-b1b7-0aea4b2a8f98",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "W6L8I2wNa3439FAw",
+          "name": "OpenRouter Andrey Test account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Reads campaign data including name, budget, status, and start date from the Campaigns sheet.",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw",
+          "mode": "list",
+          "cachedResultName": "Sportsbet - Builder Track Learning Path",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1888806730,
+          "mode": "list",
+          "cachedResultName": "campaigns_sample_data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit#gid=1888806730"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        496,
+        208
+      ],
+      "id": "228b0d22-facb-44e7-aadd-e9acd52dbf40",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lxE793QfXSPj8XHl",
+          "name": "Andrey - Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Sends a message to the campaign-alerts Slack channel.",
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0BJW6G71B6",
+          "mode": "list",
+          "cachedResultName": "campaign-notifier"
+        },
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message_Text', ``, 'string') }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slackTool",
+      "typeVersion": 2.5,
+      "position": [
+        320,
+        208
+      ],
+      "id": "877812d3-c518-4ed1-b3d4-ee259fd9432b",
+      "name": "Send a message in Slack",
+      "webhookId": "d6454933-12b9-4dce-b6aa-17fcce360a2b",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "Nhu8l5RrYeJmqF5Q",
+          "name": "Slack OAuth2 API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Slack": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "triggerCount": 0,
+  "versionId": "c00a1005-ffbb-4a4c-a38e-ce109aaf692f",
+  "owner": {
+    "type": "team",
+    "teamId": "ymFdjvKmND9faXpW",
+    "teamName": "Sportsbet Training"
+  },
+  "parentFolderId": "I5pmWEM4JMHQwXF7",
+  "isArchived": false,
+  "nodeGroups": []
+}

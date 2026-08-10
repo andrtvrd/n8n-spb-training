@@ -1,0 +1,78 @@
+{
+  "id": "GXvN1Waxk9sdA5qL",
+  "name": "Test workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5fb8dffa-b287-44b5-9a61-ef1cb0f2b02b",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw",
+          "mode": "list",
+          "cachedResultName": "Builder Track",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 228768318,
+          "mode": "list",
+          "cachedResultName": "notification_log_tab",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yk0yTLgx9RUdsVQtWMR9wPyuijt5s0p6fKamvZRu1iw/edit#gid=228768318"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "2b37033a-e4b3-4d4b-a77a-c74b7919998d",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lxE793QfXSPj8XHl",
+          "name": "Andrey - Google Sheets OAuth2 API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "triggerCount": 0,
+  "versionId": "dbabb8ce-afca-4d5a-87dd-bf236b9baad1",
+  "owner": {
+    "type": "team",
+    "teamId": "ymFdjvKmND9faXpW",
+    "teamName": "Sportsbet Training"
+  },
+  "parentFolderId": "R3Ng0ERj614YRYsb",
+  "isArchived": false,
+  "nodeGroups": []
+}

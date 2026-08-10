@@ -1,0 +1,16 @@
+{
+  "id": "W6L8I2wNa3439FAw",
+  "name": "OpenRouter Andrey Test account",
+  "type": "openRouterApi",
+  "data": {
+    "apiKey": ""
+  },
+  "ownedBy": {
+    "type": "team",
+    "teamId": "ymFdjvKmND9faXpW",
+    "teamName": "Sportsbet Training"
+  },
+  "isGlobal": false,
+  "isResolvable": false,
+  "resolvableAllowFallback": false
+}
