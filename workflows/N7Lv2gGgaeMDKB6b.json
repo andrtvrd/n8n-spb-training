@@ -7,7 +7,7 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -192,
+        -480,
         32
       ],
       "id": "b81497cf-a8c0-4045-b9b0-6491551e0d07",
@@ -25,16 +25,43 @@
       ],
       "id": "b437495a-4546-4660-a54d-448c1404ca67",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "resource": "Account",
+        "operation": "get /account/{id}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-netsuite-rest.netSuiteRest",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        32
+      ],
+      "id": "562cb1e0-4c67-4469-be58-819193ef5241",
+      "name": "Account - Get record"
     }
   ],
-  "connections": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Account - Get record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
   "triggerCount": 0,
-  "versionId": "03b65078-09b1-480a-83c7-184f0c5e51f0",
+  "versionId": "8d96855b-cbce-4cf1-b226-b24188d3b228",
   "owner": {
     "type": "team",
     "teamId": "ymFdjvKmND9faXpW",
